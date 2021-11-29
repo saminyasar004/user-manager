@@ -1,0 +1,24 @@
+{
+    "name": "user-manager",
+    "description": "Manage Create, Read, Update, Delete user using Node JS & MySQL.",
+    "version": "1.0.0",
+    "main": "app.js",
+    "scripts": {
+        "dev": "NODE_ENV=development nodemon ./src/app.js",
+        "production": "NODE_ENV=production node ./src/app.js"
+    },
+    "author": "Samin Yasar",
+    "license": "MIT",
+    "devDependencies": {
+        "eslint": "^8.3.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.25.3",
+        "eslint-plugin-prettier": "^4.0.0",
+        "nodemon": "^2.0.15",
+        "prettier": "^2.5.0"
+    },
+    "dependencies": {
+        "mysql": "^2.18.1"
+    }
+}
