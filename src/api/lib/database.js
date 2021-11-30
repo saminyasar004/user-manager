@@ -34,7 +34,7 @@ database.connection.connect((err) => {
  *
  * @param {Connection} con - The database connection property
  * @param {Object} values - The username & the password of the user as an object
- * @param {Callback} callback - A callback function
+ * @param {CallableFunction} callback - A callback function
  * @returns {Array} - An array of the user's details
  */
 database.getUser = (con, values, callback) => {
@@ -45,6 +45,66 @@ database.getUser = (con, values, callback) => {
             callback(null, result);
         } else {
             callback("Error occures to selecting your user data.", null);
+            throw new Error(err);
+        }
+    });
+};
+
+/**
+ * Lookup a user details according to its username
+ *
+ * @param {Connection} con - Database connection property
+ * @param {String} username - The username of the user
+ * @param {CallableFunction} callback - A callback function
+ * @returns {Array} - An array of the user's details
+ */
+database.lookupUsername = (con, username, callback) => {
+    const sqlQuery = `SELECT * FROM ${config.db.tables.user} WHERE username = '${username}'`;
+    con.query(sqlQuery, (err, result) => {
+        if (!err && result) {
+            callback(null, result);
+        } else {
+            callback("Error occures to selecting your user data.", null);
+            throw new Error(err);
+        }
+    });
+};
+
+/**
+ * Lookup a user details according to its email
+ *
+ * @param {Connection} con - Database connection property
+ * @param {String} email - The email of the user
+ * @param {CallableFunction} callback - A callback function
+ * @returns {Array} - An array of the user's details
+ */
+database.lookupEmail = (con, email, callback) => {
+    const sqlQuery = `SELECT * FROM ${config.db.tables.user} WHERE email = '${email}'`;
+    con.query(sqlQuery, (err, result) => {
+        if (!err && result) {
+            callback(null, result);
+        } else {
+            callback("Error occures to selecting your user data.", null);
+            throw new Error(err);
+        }
+    });
+};
+
+/**
+ * Insert a user into database.
+ *
+ * @param {Connection} con - Database connection
+ * @param {Object} values - All the placeholder values in an object
+ * @param {CallableFunction} callback - A callback function
+ */
+database.insertUser = (con, values, callback) => {
+    const { name, username, email, password } = values;
+    const sqlQuery = `INSERT INTO ${config.db.tables.user} (name, username, email, password) VALUES ('${name}', '${username}', '${email}', '${password}')`;
+    con.query(sqlQuery, (err) => {
+        if (!err) {
+            callback(null);
+        } else {
+            callback("Error occures while insert a new user.");
             throw new Error(err);
         }
     });
