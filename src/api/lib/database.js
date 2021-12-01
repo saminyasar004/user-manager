@@ -110,5 +110,38 @@ database.insertUser = (con, values, callback) => {
     });
 };
 
+/**
+ * Update an existing user data.
+ *
+ * @param {Connection} con - Database connection
+ * @param {Object} values - All the placeholder values in an object
+ * @param {CallableFunction} callback - A callback function
+ */
+database.updateUser = (con, values, callback) => {
+    const { name, currentUsername, username, email, password } = values;
+
+    // const placeholderQuery = `${name ? `name = '${name}'\n` : ""}${
+    //     username ? `username = '${username}'\n` : ""
+    // }${email ? `email = '${email}'\n` : ""}${newPassword ? `password = '${newPassword}'\n` : ""}`;
+
+    // if (placeholderQuery) {
+    // const sqlQuery = `UPDATE ${config.db.tables.user} SET ${placeholderQuery
+    //     .split("\n")
+    //     .filter((el) => Boolean(el.trim()))
+    //     .join(", ")} WHERE ${config.db.tables.user}.username = '${currentUsername}'`;
+
+    const sqlQuery = `UPDATE ${config.db.tables.user} SET name = '${name}', username = '${username}', email = '${email}', password = '${password}' WHERE ${config.db.tables.user}.username = '${currentUsername}'`;
+
+    con.query(sqlQuery, (err) => {
+        if (!err) {
+            callback(null);
+        } else {
+            callback("Error occures while updating the user's data.");
+            throw new Error(err);
+        }
+    });
+    // }
+};
+
 // Export module
 module.exports = database;

@@ -62,7 +62,6 @@ reqResHandler.handler = (req, res) => {
             const payloadStr = JSON.stringify(payloadObj);
 
             res.writeHead(statusCode, responseHeader);
-            console.log(requestProps);
             res.end(payloadStr);
         });
     });

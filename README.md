@@ -1,18 +1,25 @@
-## Features
+# User Manager
 
--   Application should be able to do CRUD operation to users
--   Requrie placeholder --> `name`, `username`, `email`, `password`. The `username` & `email` will be unique.
--   Accepted methods --> `GET`, `POST`, `PUT`, `DELETE`
--   `GET` method -->
-    -   `/user/:username` --> Return a user details except user password according to its username & the user password will be passed as request body.
--   `POST` method -->
-    -   `/user` --> Create a new user. The require placeholder values should be passes as request body.
-    -   `PUT` method -->
-        -   `/user` --> Update an existing user. The require placeholder values should be passes as request body.
-    -   `DELETE` method -->
-        -   `/user/:username` --> Delete an existing user data according to its username.
+RESTful API to manage user system.
 
 ## Technology
 
--   Raw Node.js
--   MySQL database
+-   Raw Node JS
+-   MySQL Database
+
+## API Methods
+
+-   `GET` --> Get a particular user data.
+-   `POST` --> Create a new user in the system.
+-   `PUT` --> Update an existing user data.
+-   `DELETE` --> Delete an existing user.
+
+## API Routes
+
+-   `/user/:username`
+    -   Return a particular user data.
+    -   Client should be provide the user's password in the request body.
+-   `/user`
+    -   Create a new user.
+    -   Client should be provide all the placeholder values (`name`, `username`, `email`,`password`) to create a new one. The `username` & the `email` would be unique.
+-   `/user/:`
