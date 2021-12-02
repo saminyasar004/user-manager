@@ -119,19 +119,7 @@ database.insertUser = (con, values, callback) => {
  */
 database.updateUser = (con, values, callback) => {
     const { name, currentUsername, username, email, password } = values;
-
-    // const placeholderQuery = `${name ? `name = '${name}'\n` : ""}${
-    //     username ? `username = '${username}'\n` : ""
-    // }${email ? `email = '${email}'\n` : ""}${newPassword ? `password = '${newPassword}'\n` : ""}`;
-
-    // if (placeholderQuery) {
-    // const sqlQuery = `UPDATE ${config.db.tables.user} SET ${placeholderQuery
-    //     .split("\n")
-    //     .filter((el) => Boolean(el.trim()))
-    //     .join(", ")} WHERE ${config.db.tables.user}.username = '${currentUsername}'`;
-
     const sqlQuery = `UPDATE ${config.db.tables.user} SET name = '${name}', username = '${username}', email = '${email}', password = '${password}' WHERE ${config.db.tables.user}.username = '${currentUsername}'`;
-
     con.query(sqlQuery, (err) => {
         if (!err) {
             callback(null);
@@ -140,7 +128,25 @@ database.updateUser = (con, values, callback) => {
             throw new Error(err);
         }
     });
-    // }
+};
+
+/**
+ * Delete an existing user data.
+ *
+ * @param {Connection} con - Database connection
+ * @param {Object} values - All the placeholder values in an object
+ * @param {CallableFunction} callback - A callback function
+ */
+database.deleteUser = (con, values, callback) => {
+    const { username, password } = values;
+    const sqlQuery = `DELETE FROM ${config.db.tables.user} WHERE username = '${username}' AND password = '${password}'`;
+    con.query(sqlQuery, (err, result) => {
+        if (!err && result.affectedRows) {
+            callback(null);
+        } else {
+            callback(err);
+        }
+    });
 };
 
 // Export module

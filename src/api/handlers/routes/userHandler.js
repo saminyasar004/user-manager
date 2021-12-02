@@ -1,4 +1,3 @@
-/* eslint-disable no-throw-literal */
 /* eslint-disable no-underscore-dangle */
 /**
  * Title: User Handler
@@ -263,6 +262,57 @@ userHandler._user.put = (requestProps, callback) => {
                 error: "Please provide atleast name, username, email or password to edit the user's details.",
             });
         }
+    } else {
+        callback(400, {
+            error: "Please provide the username in URL path & the password in your request body.",
+        });
+    }
+};
+
+// Delete method
+userHandler._user.delete = (requestProps, callback) => {
+    const username =
+        typeof requestProps.params[0] === "string" ? requestProps.params[0].trim() : null;
+    const password =
+        typeof requestProps.reqBody.password === "string"
+            ? utilities.encrypt(requestProps.reqBody.password)
+            : null;
+    if (username && password) {
+        // store the placeholder value into an object
+        const userObj = {
+            username,
+            password,
+        };
+        // look up the username
+        database.lookupUsername(database.connection, username, (usernameError, usernameResult) => {
+            if (!usernameError && usernameResult.length) {
+                // get the user details
+                database.getUser(database.connection, userObj, (userError, userResult) => {
+                    if (!userError && userResult.length) {
+                        // delete the user
+                        database.deleteUser(database.connection, userObj, (deleteError) => {
+                            if (!deleteError) {
+                                callback(200, {
+                                    message: "Successfully deleted your requested user.",
+                                });
+                            } else {
+                                callback(500, {
+                                    error: "Error occures on deleting your requested user.",
+                                });
+                            }
+                        });
+                    } else {
+                        callback(403, {
+                            error: "Your given password was incorrect. Please provide the correct password.",
+                        });
+                    }
+                });
+            } else {
+                callback(404, {
+                    error: "Your requested user couldn't found.",
+                });
+            }
+        });
     } else {
         callback(400, {
             error: "Please provide the username in URL path & the password in your request body.",
