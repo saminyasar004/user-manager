@@ -10,6 +10,12 @@ RESTful API to manage user system.
 -   Node JS
 -   MySQL Database
 
+## API URL
+
+```http
+https://user-manage-app.herokuapp.com/
+```
+
 ## API Methods
 
 -   `GET`: Get a particular user data.
