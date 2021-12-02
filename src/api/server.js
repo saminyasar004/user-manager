@@ -22,7 +22,7 @@ server.init = () => {
     // listen the server
     httpServer.listen(environment.port, () => {
         console.log(
-            `Server is running at: http://localhost:${environment.port} in ${environment.envName} environment.`
+            `Server is running at: ${environment.port} in ${environment.envName} environment.`
         );
     });
 };

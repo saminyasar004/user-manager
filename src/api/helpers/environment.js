@@ -11,13 +11,13 @@ const environment = {};
 // Development environment
 environment.development = {
     envName: "Development",
-    port: "3000",
+    port: process.env.PORT || 3000,
 };
 
 // Development environment
 environment.production = {
     envName: "Production",
-    port: "8080",
+    port: process.env.PORT || 8080,
 };
 
 // Validate the corresponding environment object
