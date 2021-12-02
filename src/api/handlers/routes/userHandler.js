@@ -57,7 +57,7 @@ userHandler._user.get = (requestProps, callback) => {
     const username =
         typeof requestProps.params[0] === "string" ? requestProps.params[0].trim() : null;
     const password =
-        typeof requestProps.queryObj.password === "string"
+        typeof requestProps.reqBody.password === "string"
             ? utilities.encrypt(requestProps.reqBody.password)
             : null;
     if (username && password) {
