@@ -9,10 +9,11 @@
 const confg = {
     secretKey: "fsafrewruomipohkjhklkrewrqzxcm",
     db: {
-        host: "localhost",
-        username: "root",
-        password: "",
-        database: "user_manager",
+        host: "sql6.freemysqlhosting.net",
+        user: "sql6455903",
+        password: "KkTxHabdT2",
+        database: "sql6455903",
+        port: 3306,
         tables: {
             user: "user_table",
         },

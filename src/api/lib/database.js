@@ -14,10 +14,11 @@ const config = require("../helpers/confg");
 const database = {};
 
 database.connection = mysql.createConnection({
-    host: config.db.database.host,
-    user: config.db.username,
+    host: config.db.host,
+    user: config.db.user,
     password: config.db.password,
     database: config.db.database,
+    port: config.db.port,
 });
 
 database.connection.connect((err) => {
