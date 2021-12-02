@@ -7,7 +7,7 @@ RESTful API to manage user system.
 
 ## Technology
 
--   Raw Node JS
+-   Node JS
 -   MySQL Database
 
 ## API Methods
