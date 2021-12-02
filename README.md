@@ -2,7 +2,6 @@
 
 RESTful API to manage user system.
 
-[![MIT License](https://img.shields.io/npm/l/usermanager.svg)](https://github.com/saminyasar004/user-manager/blob/master/LICENSE)
 [![Website](https://img.shields.io/website?label=saminyasar%20🚀&name=hello&style=flat&url=https://saminyasar.netlify.app/)](https://saminyasar.netlify.app/)
 [![Github Follow](https://img.shields.io/github/followers/saminyasar004?label=saminyasar004&style=social)](https://github.com/saminyasar004/)
 
