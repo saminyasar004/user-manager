@@ -21,14 +21,22 @@ database.connection = mysql.createConnection({
     port: config.db.port,
 });
 
-database.connection.connect((err) => {
-    if (!err) {
-        console.log(`Successfully connected to ${config.db.database} database of MySQL.`);
-    } else {
-        console.log(`Error occures while connecting to the ${config.db.database} database.`);
-        throw new Error(err);
-    }
-});
+/**
+ * Create table in the database
+ *
+ * @param {Connection} con - The database connection
+ * @param {CallableFunction} callback - A callback function
+ */
+database.createTable = (con, callback) => {
+    const sqlQuery = `CREATE TABLE IF NOT EXISTS ${config.db.tables.user} (id INT(11) AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL)`;
+    con.query(sqlQuery, (err) => {
+        if (!err) {
+            callback(null);
+        } else {
+            callback(err);
+        }
+    });
+};
 
 /**
  * Get user details by username & password
@@ -149,6 +157,25 @@ database.deleteUser = (con, values, callback) => {
         }
     });
 };
+
+// Connect the database
+database.connection.connect((connectionError) => {
+    if (!connectionError) {
+        console.log(`Successfully connected to ${config.db.database} database of MySQL.`);
+        database.createTable(database.connection, (tableCreationError) => {
+            if (!tableCreationError) {
+                console.log(`Successfully created ${config.db.tables.user} table in the database.`);
+            } else {
+                console.log(
+                    `Error occures while creating ${config.db.tables.user} table in the database.`
+                );
+            }
+        });
+    } else {
+        console.log(`Error occures while connecting to the ${config.db.database} database.`);
+        throw new Error(connectionError);
+    }
+});
 
 // Export module
 module.exports = database;
