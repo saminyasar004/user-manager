@@ -4,8 +4,7 @@
     "version": "1.0.0",
     "main": "app.js",
     "scripts": {
-        "start": "node ./src/app.js",
-        "production": "NODE_ENV=production node ./src/app.js",
+        "start": "NODE_ENV=production node ./src/app.js",
         "dev": "NODE_ENV=development nodemon ./src/app.js"
     },
     "author": "Samin Yasar",
